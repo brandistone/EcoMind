@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Ticket, Calendar, Users, ChevronRight, Star, Activity, Globe } from "lucide-react"
 import { Link } from "react-router-dom"
+import HeroSection from "../components/Herosection"
 // import bitcoinImage from "../assets/tig.png"
 
 const ParticleField: React.FC = () => {
@@ -331,6 +332,15 @@ const HomePage: React.FC = () => {
           ))}
         </div>
       </section>
+
+      <section>
+        <div>
+          <HeroSection />
+        </div>
+      </section>
+
+
+
     </div>
   )
 }

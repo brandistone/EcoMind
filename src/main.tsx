@@ -9,6 +9,7 @@ import './index.css'
 
 import HomePage from "./frontend/pages/Home.tsx";
 import HeroSection from "./frontend/components/Herosection.tsx";
+import { Sidebar } from "lucide-react";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
   {
     path: '/herosection',
     element: <HeroSection />,
+  },
+
+  {
+    path: '/sidebar',
+    element: <Sidebar/>,
   },
 
 
