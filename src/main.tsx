@@ -6,13 +6,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css'
 
 
-import Example from "./frontend/pages/Home.tsx";
+
+import HomePage from "./frontend/pages/Home.tsx";
+import HeroSection from "./frontend/components/Herosection.tsx";
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Example />,
+    element: <HomePage />,
   },
+
+  {
+    path: '/herosection',
+    element: <HeroSection />,
+  },
+
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
