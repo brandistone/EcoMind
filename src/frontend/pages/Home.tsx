@@ -145,7 +145,7 @@ const HomePage: React.FC = () => {
               <div className="flex items-center space-x-8">
                 {[
                   { name: "Home", path: "/" },
-                  { name: "Dashboard", path: "/waiting" },
+                  { name: "Dashboard", path: "/dashboard" },
                   { name: "Reports", path: "/mint" },
                   { name: "Reccomendations", path: "/mint" },
                   { name: "Settings", path: "/mint" },

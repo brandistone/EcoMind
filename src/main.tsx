@@ -10,6 +10,7 @@ import './index.css'
 import HomePage from "./frontend/pages/Home.tsx";
 import HeroSection from "./frontend/components/Herosection.tsx";
 import { Sidebar } from "lucide-react";
+import DashboardPage from "./frontend/pages/dashboard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
   {
     path: '/sidebar',
     element: <Sidebar/>,
+  },
+
+  {
+    path: '/dashboard',
+    element: <DashboardPage/>,
   },
 
 
