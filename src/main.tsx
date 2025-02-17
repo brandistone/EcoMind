@@ -11,6 +11,7 @@ import HomePage from "./frontend/pages/Home.tsx";
 import HeroSection from "./frontend/components/Herosection.tsx";
 import { Sidebar } from "lucide-react";
 import DashboardPage from "./frontend/pages/dashboard.tsx";
+import ExploreMap from "./frontend/pages/exploreMap.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <DashboardPage/>,
+  },
+
+  {
+    path: '/map',
+    element: <ExploreMap/>,
   },
 
 

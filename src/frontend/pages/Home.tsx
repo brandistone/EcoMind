@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { Ticket, Calendar, Users, ChevronRight, Star, Activity, Globe } from "lucide-react"
+import { Ticket, Calendar, Users, ChevronRight, Star, BarChart, Map, Clock } from "lucide-react"
 import { Link } from "react-router-dom"
 import HeroSection from "../components/Herosection"
 // import bitcoinImage from "../assets/tig.png"
@@ -50,12 +50,12 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({ children, delay, onClick, i
       onClick={onClick}
     >
       <div
-        className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-xl blur-xl 
+        className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-blue-600/20 rounded-xl blur-xl 
         group-hover:blur-2xl transition-all duration-300"
       />
       <div
-        className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-purple-500/30 
-        group-hover:border-purple-500/50 p-6 transition-all duration-300"
+        className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-green-500/30 
+        group-hover:border-green-500/50 p-6 transition-all duration-300"
       >
         {children}
       </div>
@@ -80,21 +80,23 @@ const HomePage: React.FC = () => {
 
   const features = [
     {
-      icon: <Ticket className="w-8 h-8" />,
-      title: "Quantum Ticketing",
-      description: "Next-gen blockchain verification with quantum security In less than 2 seconds only on Avalance ",
+      icon: <Map className="w-8 h-8" />,
+      title: "Explore Map",
+      description: "Visualize emissions, water usage, deforestation, and other key metrics to understand the impact in various.",
       color: "from-purple-600 to-blue-600",
+      
     },
     {
-      icon: <Globe className="w-8 h-8" />,
-      title: "Maximizing Saving on Events",
-      description: "Leveraging Avalanche's Low Fees for More Affordable Event Ticketing",
+      icon: <BarChart className="w-8 h-8" />,
+      title: "Scenario Analysis",
+      description: "Simulate the future impact of various actions and policies with our powerful scenario analysis tool. Adjust variables like energy use.",
       color: "from-blue-600 to-purple-600",
+      
     },
     {
-      icon: <Activity className="w-8 h-8" />,
-      title: "Your Tickets, Your Security",
-      description: "Safeguard Your Tickets with Avalanche's Trusted Blockchain Technology",
+      icon: <Clock className="w-8 h-8" />,
+      title: "Real Time Data",
+      description: "Stay updated with real-time environmental data from trusted sources. View live metrics for air quality.",
       color: "from-purple-600 to-pink-600",
     },
   ]
@@ -110,7 +112,7 @@ const HomePage: React.FC = () => {
           transform: `translate(${mousePosition.x - 128}px, ${mousePosition.y - 128}px)`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-green-500/30 to-blue-500/10 rounded-full blur-3xl" />
       </div>
 
       {/* Enhanced Navigation */}
@@ -119,23 +121,23 @@ const HomePage: React.FC = () => {
         ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-blue-900/10 backdrop-blur-xl" />
+          <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 to-blue-900/10 backdrop-blur-xl" />
           <div className="relative max-w-7xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3 group cursor-pointer">
                 <div className="relative w-12 h-12">
                   <div
-                    className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl 
+                    className="absolute inset-0 bg-gradient-to-r from-green-600 to-blue-600 rounded-xl 
                     group-hover:scale-110 group-hover:rotate-180 transition-all duration-700"
                   />
                   <div className="absolute inset-1 bg-black rounded-lg" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-2xl font-bold">E</span>
+                    <span className="text-2xl font-bold">EM</span>
                   </div>
                 </div>
                 <span
                   className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
-                  from-purple-400 to-blue-400 group-hover:from-purple-300 group-hover:to-blue-300 
+                  from-green-400 to-blue-400 group-hover:from-green-300 group-hover:to-blue-300 
                   transition-all duration-300"
                 >
                   ECOMIND AI
@@ -155,7 +157,7 @@ const HomePage: React.FC = () => {
                       {name}
                     </span>
                     <span
-                      className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 
+                      className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-green-500 to-blue-500 
                       group-hover:w-full group-hover:left-0 transition-all duration-300"
                     />
                   </Link>
@@ -182,7 +184,7 @@ const HomePage: React.FC = () => {
               </div>
               <div className="overflow-hidden">
                 <span
-                  className="inline-block bg-gradient-to-r from-purple-400 to-blue-400 
+                  className="inline-block bg-gradient-to-r from-green-400 to-blue-400 
                   bg-clip-text text-transparent animate-slide-up-fade delay-400"
                 >
                   Your Gateway to Climate Resilience.
@@ -190,21 +192,18 @@ const HomePage: React.FC = () => {
               </div>
             </h1>
 
-            <p className="text-xl text-gray-300 mb-10 opacity-0 animate-fade-in delay-700">
-              Step into a world where events transcend reality. Experience seamless ticketing, immersive venues, and
-              next-generation event management.
-            </p>
+          
 
             <div className="flex space-x-6">
               <a href="/ticketsell">
                 <button className="group relative px-8 py-4 rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-blue-600" />
                   <div
-                    className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 blur-xl 
+                    className="absolute inset-0 bg-gradient-to-r from-green-600 to-blue-600 blur-xl 
                     group-hover:blur-2xl transition-all duration-300"
                   />
                   <div className="relative z-10 flex items-center space-x-2">
-                    <span>Explore Events</span>
+                    <span>Explore Map</span>
                     <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </button>
@@ -212,12 +211,12 @@ const HomePage: React.FC = () => {
 
               <a href="/ticket">
                 <button className="group relative px-8 py-4 rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 border border-purple-500 rounded-xl" />
+                  <div className="absolute inset-0 border border-green-500 rounded-xl" />
                   <div
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 
+                    className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-blue-500/10 
                     transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
                   />
-                  <span className="relative z-10">Tickets Collection</span>
+                  <span className="relative z-10">Scenario Anaysis</span>
                 </button>
               </a>
             </div>
@@ -231,7 +230,7 @@ const HomePage: React.FC = () => {
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-3xl 
+                  className="absolute inset-0 bg-gradient-to-r from-green-500 to-blue-500 rounded-3xl 
                     opacity-20 blur-3xl group-hover:blur-2xl transition-all duration-500"
                   style={{
                     transform: `rotate(${i * 30}deg)`,
@@ -239,12 +238,12 @@ const HomePage: React.FC = () => {
                   }}
                 />
               ))}
-              <img
+              {/* <img
                 // src={bitcoinImage || "/placeholder.svg"}
                 alt="VR Experience"
                 className="relative z-10 w-full h-auto object-cover rounded-3xl transform 
                   group-hover:scale-105 group-hover:rotate-3 transition-all duration-700"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -275,6 +274,12 @@ const HomePage: React.FC = () => {
             {feature.description}
           </p>
         </div>
+        <Link to={`/${feature.title.toLowerCase().replace(/\s+/g, '-')}`} className="mt-4 inline-flex items-center text-sm font-medium text-black-900">
+          Learn more
+          <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
       </AnimatedCard>
     ))}
   </div>
@@ -304,7 +309,7 @@ const HomePage: React.FC = () => {
               <div
                 className={`relative bg-black/40 backdrop-blur-xl rounded-xl border 
                   transition-all duration-300
-                  ${activeStat === index ? `border-${stat.color}-500/50 translate-y-[-8px]` : "border-purple-500/30"}`}
+                  ${activeStat === index ? `border-${stat.color}-500/50 translate-y-[-8px]` : "border-green-500/30"}`}
               >
                 <div className="flex flex-col items-center p-6">
                   <div
