@@ -195,7 +195,7 @@ const HomePage: React.FC = () => {
           
 
             <div className="flex space-x-6">
-              <a href="/ticketsell">
+              <a href="/map">
                 <button className="group relative px-8 py-4 rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-blue-600" />
                   <div
