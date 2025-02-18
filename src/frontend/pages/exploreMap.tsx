@@ -3,6 +3,7 @@ import axios from "axios";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
 
+// Define the structure of environmental data to be used in the map
 interface EnvironmentalData {
   lat: number;
   lng: number;
@@ -16,7 +17,7 @@ const ExploreMap: React.FC = () => {
 
   const apiKey = "b23ce6470ea462e17b4116735040406a"; // Replace with your OpenWeatherMap API key
 
-  // Fetch real-time air quality data for cities in Kenya
+  // Fetch air quality data for cities in Kenya
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
