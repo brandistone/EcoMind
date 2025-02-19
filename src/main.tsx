@@ -16,6 +16,7 @@ import ExploreMap from "./frontend/pages/exploreMap.tsx";
 import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis.tsx";
 import LoginPage from "./frontend/pages/login.tsx";
 import SignUp from "./frontend/pages/signup.tsx";
+import ProfileSetup from "./frontend/components/profile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,11 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUp/>,
+  },
+
+  {
+    path: '/profile',
+    element: <ProfileSetup/>,
   },
 
 

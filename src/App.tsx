@@ -10,6 +10,7 @@ import ExploreMap from "./frontend/pages/exploreMap";
 import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis";
 import LoginPage from "./frontend/pages/login";
 import SignUp from "./frontend/pages/signup";
+import ProfileSetup from "./frontend/components/profile";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/scenario" element={<ScenarioAnalysisChat />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile" element={<ProfileSetup />} />
 
 
 
