@@ -9,6 +9,7 @@ import ExploreMap from "./frontend/pages/exploreMap";
 // import ScenarioAnalysisTool from "./frontend/pages/scenarioAnalysis";
 import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis";
 import LoginPage from "./frontend/pages/login";
+import SignUp from "./frontend/pages/signup";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/map" element={<ExploreMap />} />
         <Route path="/scenario" element={<ScenarioAnalysisChat />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUp />} />
 
 
 

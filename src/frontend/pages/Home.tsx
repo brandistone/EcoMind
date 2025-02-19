@@ -195,7 +195,7 @@ const HomePage: React.FC = () => {
           
 
             <div className="flex space-x-6">
-              <a href="/map">
+              <a href="/login">
                 <button className="group relative px-8 py-4 rounded-xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-blue-600" />
                   <div
@@ -203,7 +203,7 @@ const HomePage: React.FC = () => {
                     group-hover:blur-2xl transition-all duration-300"
                   />
                   <div className="relative z-10 flex items-center space-x-2">
-                    <span>Explore Map</span>
+                    <span>Get Started</span>
                     <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </button>

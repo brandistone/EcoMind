@@ -15,6 +15,7 @@ import ExploreMap from "./frontend/pages/exploreMap.tsx";
 // import ScenarioAnalysisTool from "./frontend/pages/scenarioAnalysis.tsx";
 import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis.tsx";
 import LoginPage from "./frontend/pages/login.tsx";
+import SignUp from "./frontend/pages/signup.tsx";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage/>,
+  },
+
+  {
+    path: '/signup',
+    element: <SignUp/>,
   },
 
 
