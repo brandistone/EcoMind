@@ -209,7 +209,7 @@ const HomePage: React.FC = () => {
                 </button>
               </a>
 
-              <a href="/ticket">
+              <a href="/scenario">
                 <button className="group relative px-8 py-4 rounded-xl overflow-hidden">
                   <div className="absolute inset-0 border border-green-500 rounded-xl" />
                   <div
@@ -338,11 +338,11 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      <section>
+      {/* <section>
         <div>
           <HeroSection />
         </div>
-      </section>
+      </section> */}
 
 
 
