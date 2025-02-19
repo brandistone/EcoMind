@@ -11,7 +11,7 @@ import HomePage from "./frontend/pages/Home.tsx";
 import HeroSection from "./frontend/components/Herosection.tsx";
 import { Sidebar } from "lucide-react";
 // import DashboardPage from "./frontend/pages/dashboard.tsx";
-import ExploreMap from "./frontend/pages/exploreMap.tsx";
+// import ExploreMap from "./frontend/pages/exploreMap.tsx";
 // import ScenarioAnalysisTool from "./frontend/pages/scenarioAnalysis.tsx";
 import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis.tsx";
 import LoginPage from "./frontend/pages/login.tsx";
@@ -40,10 +40,7 @@ const router = createBrowserRouter([
   //   element: <DashboardPage/>,
   // },
 
-  {
-    path: '/map',
-    element: <ExploreMap/>,
-  },
+ 
 
   {
     path: '/scenario',
