@@ -1,47 +1,51 @@
 import type { CarbonData, EmissionSource } from "../types"
+import { EMISSION_FACTORS } from "./calculations"
 
-// Simulated API endpoint that would normally fetch from your backend
+// Simulated user data store
+const userDataStore: Record<
+  string,
+  {
+    baselineElectricity: number
+    baselineTransport: number
+    baselineWater: number
+    baselineFood: number
+    reductionRate: number
+  }
+> = {
+  user123: {
+    baselineElectricity: 30, // kWh per day
+    baselineTransport: 25, // miles per day
+    baselineWater: 175, // liters per day
+    baselineFood: 0.75, // kg per day
+    reductionRate: 0.02, // 2% reduction per day
+  },
+}
+
 export async function fetchCarbonData(userId: string, startDate: Date, endDate: Date): Promise<CarbonData[]> {
-  // This would normally be an API call to your backend
-  // For now, we'll generate realistic data based on typical usage patterns
+  // Get user-specific baseline data
+  const userData = userDataStore[userId]
+  if (!userData) {
+    throw new Error("User not found")
+  }
 
   const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24))
   const data: CarbonData[] = []
-
-  // Mock emission calculation functions
-  const calculateElectricityEmissions = (kwh: number) => kwh * 0.5 // Example: kWh to CO2 conversion
-  const calculateTransportEmissions = (miles: number, type: string) => {
-    if (type === "car") return miles * 0.2
-    return miles * 0.1 // bus
-  }
-  const calculateWaterEmissions = (liters: number) => liters * 0.001 // Example: liters to CO2 conversion
-  const calculateFoodEmissions = (kg: number, type: string) => {
-    if (type === "chicken") return kg * 2
-    return kg * 5 // other meat
-  }
 
   for (let i = 0; i < days; i++) {
     const date = new Date(startDate)
     date.setDate(date.getDate() + i)
 
-    // Generate realistic daily values with some random variation
-    const electricity = calculateElectricityEmissions(
-      25 + Math.random() * 5, // Average daily household usage ~30 kWh
-    )
+    // Calculate reduction factor based on days passed
+    const reductionFactor = 1 - userData.reductionRate * i
 
-    const transport = calculateTransportEmissions(
-      20 + Math.random() * 10, // Average daily commute ~25 miles
-      Math.random() > 0.7 ? "bus" : "car",
-    )
+    // Generate realistic daily values with user-specific baselines
+    const electricity = calculateEmissions(userData.baselineElectricity * reductionFactor, EMISSION_FACTORS.electricity)
 
-    const water = calculateWaterEmissions(
-      150 + Math.random() * 50, // Average daily water usage ~175L
-    )
+    const transport = calculateEmissions(userData.baselineTransport * reductionFactor, EMISSION_FACTORS.car)
 
-    const food = calculateFoodEmissions(
-      0.5 + Math.random() * 0.5, // Average daily meat consumption ~0.75kg
-      "chicken",
-    )
+    const water = calculateEmissions(userData.baselineWater * reductionFactor, EMISSION_FACTORS.water)
+
+    const food = calculateEmissions(userData.baselineFood * reductionFactor, EMISSION_FACTORS.beef)
 
     const total = electricity + transport + water + food
 
@@ -68,5 +72,12 @@ export async function fetchEmissionsBySource(
 ): Promise<number> {
   const data = await fetchCarbonData(userId, startDate, endDate)
   return data.reduce((total, day) => total + day.sources[source], 0)
+}
+
+// Helper function to calculate emissions with random variation
+function calculateEmissions(baseValue: number, emissionFactor: number): number {
+  const variation = 0.1 // 10% random variation
+  const randomFactor = 1 + (Math.random() * variation * 2 - variation)
+  return baseValue * emissionFactor * randomFactor
 }
 
