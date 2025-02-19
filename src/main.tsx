@@ -10,13 +10,14 @@ import './index.css'
 import HomePage from "./frontend/pages/Home.tsx";
 import HeroSection from "./frontend/components/Herosection.tsx";
 import { Sidebar } from "lucide-react";
-import DashboardPage from "./frontend/pages/dashboard.tsx";
+// import DashboardPage from "./frontend/pages/dashboard.tsx";
 import ExploreMap from "./frontend/pages/exploreMap.tsx";
 // import ScenarioAnalysisTool from "./frontend/pages/scenarioAnalysis.tsx";
 import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis.tsx";
 import LoginPage from "./frontend/pages/login.tsx";
 import SignUp from "./frontend/pages/signup.tsx";
 import ProfileSetup from "./frontend/components/profile.tsx";
+import Dashboard from "./frontend/components/dashboard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -34,10 +35,10 @@ const router = createBrowserRouter([
     element: <Sidebar/>,
   },
 
-  {
-    path: '/dashboard',
-    element: <DashboardPage/>,
-  },
+  // {
+  //   path: '/dashboard',
+  //   element: <DashboardPage/>,
+  // },
 
   {
     path: '/map',
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfileSetup/>,
+  },
+
+  {
+    path: '/dashboard',
+    element: <Dashboard/>,
   },
 
 
