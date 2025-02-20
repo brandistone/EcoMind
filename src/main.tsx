@@ -19,6 +19,7 @@ import SignUp from "./frontend/pages/signup.tsx";
 import ProfileSetup from "./frontend/components/profile.tsx";
 import Dashboard from "./frontend/components/dashboard.tsx";
 import ActivityLogger from "./frontend/components/activity-logger.tsx";
+import BusinessDashboard from "./frontend/pages/business-dashboard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,11 @@ const router = createBrowserRouter([
   {
     path: '/activity-logger',
     element: <ActivityLogger/>,
+  },
+
+  {
+    path: '/business-dashboard',
+    element: <BusinessDashboard/>,
   },
 
 
