@@ -18,6 +18,7 @@ import LoginPage from "./frontend/pages/login.tsx";
 import SignUp from "./frontend/pages/signup.tsx";
 import ProfileSetup from "./frontend/components/profile.tsx";
 import Dashboard from "./frontend/components/dashboard.tsx";
+import ActivityLogger from "./frontend/components/activity-logger.tsx";
 
 const router = createBrowserRouter([
   {
@@ -40,12 +41,7 @@ const router = createBrowserRouter([
   //   element: <DashboardPage/>,
   // },
 
- 
 
-  {
-    path: '/scenario',
-    // element: <ScenarioAnalysisChat/>,
-  },
 
   {
     path: '/login',
@@ -65,6 +61,11 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard/>,
+  },
+
+  {
+    path: '/activity-logger',
+    element: <ActivityLogger/>,
   },
 
 

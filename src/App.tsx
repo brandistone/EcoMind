@@ -12,6 +12,7 @@ import LoginPage from "./frontend/pages/login";
 import SignUp from "./frontend/pages/signup";
 import ProfileSetup from "./frontend/components/profile";
 import Dashboard from "./frontend/components/dashboard";
+import ActivityLogger from "./frontend/components/activity-logger";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<ProfileSetup />} />
         <Route path="/dasboard" element={<Dashboard />} />
+        <Route path="/activity-logger" element={<ActivityLogger />} />
 
 
 
