@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Ticket, Calendar, Users, ChevronRight, Star, BarChart, Map, Clock } from "lucide-react"
 import { Link } from "react-router-dom"
-import HeroSection from "../components/Herosection"
+// import HeroSection from "../components/Herosection"
 // import bitcoinImage from "../assets/tig.png"
 
 const ParticleField: React.FC = () => {
@@ -175,7 +175,7 @@ const HomePage: React.FC = () => {
             className={`transition-all duration-1000 delay-300 
             ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}`}
           >
-            <h1 className="text-7xl font-bold mb-8 leading-tight">
+            <h2 className="text-7xl font-bold mb-8 leading-tight">
               {/* <div className="overflow-hidden">
                 <span className="inline-block animate-slide-up-fade">Empowering Communities,</span>
               </div> */}
@@ -190,7 +190,7 @@ const HomePage: React.FC = () => {
                   Your Gateway to Climate Resilience.
                 </span>
               </div>
-            </h1>
+            </h2>
 
           
 
