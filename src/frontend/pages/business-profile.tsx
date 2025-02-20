@@ -1,97 +1,25 @@
+"use client"
+
+import type React from "react"
+
 import { useState } from "react"
-import {
-  Building2,
-  Users,
-  Car,
-  Factory,
-  Download,
-  ArrowDown,
-  Leaf,
-  Zap,
-  Plane,
-  Recycle,
-  ChevronRight,
-} from "lucide-react"
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-} from "recharts"
+import { Building2, Users, MapPin, Phone, Mail, Globe, Factory, Car, Upload, ArrowRight } from "lucide-react"
 
-// Mock data - replace with real API data in production
-const mockData = {
-  monthly: [
-    { month: "Sep", emissions: 125.4 },
-    { month: "Oct", emissions: 118.2 },
-    { month: "Nov", emissions: 112.8 },
-    { month: "Dec", emissions: 108.5 },
-    { month: "Jan", emissions: 98.7 },
-    { month: "Feb", emissions: 92.2 },
-  ],
-  quarterly: [
-    { month: "Q1 2023", emissions: 380.5 },
-    { month: "Q2 2023", emissions: 350.2 },
-    { month: "Q3 2023", emissions: 320.8 },
-    { month: "Q4 2023", emissions: 299.5 },
-  ],
-  yearly: [
-    { month: "2020", emissions: 1580.5 },
-    { month: "2021", emissions: 1450.2 },
-    { month: "2022", emissions: 1320.8 },
-    { month: "2023", emissions: 1199.5 },
-  ],
+interface BusinessProfile {
+  name: string
+  industry: string
+  employeeCount: string
+  address: string
+  city: string
+  country: string
+  phone: string
+  email: string
+  website: string
+  facilities: string
+  fleetSize: string
+  yearlyRevenue: string
+  sustainabilityGoals: string[]
 }
-
-const departmentData = [
-  { name: "Operations", value: 35 },
-  { name: "Sales", value: 25 },
-  { name: "IT", value: 20 },
-  { name: "Admin", value: 15 },
-  { name: "HR", value: 5 },
-]
-
-const activityData = [
-  { name: "Energy", value: 40, color: "#22C55E" },
-  { name: "Transport", value: 30, color: "#16A34A" },
-  { name: "Production", value: 20, color: "#15803D" },
-  { name: "Waste", value: 10, color: "#166534" },
-]
-
-const recommendations = [
-  {
-    id: "renewable",
-    icon: Zap,
-    title: "Switch to Renewable Energy",
-    description: "Transitioning to renewable energy sources could reduce your carbon footprint by 40%.",
-    impact: 48500,
-    action: "Get Quote",
-  },
-  {
-    id: "travel",
-    icon: Plane,
-    title: "Optimize Business Travel",
-    description: "Implementing a hybrid meeting policy could cut travel emissions by 35%.",
-    impact: 25800,
-    action: "Plan Policy",
-  },
-  {
-    id: "waste",
-    icon: Recycle,
-    title: "Zero Waste Program",
-    description: "A comprehensive recycling program could reduce waste emissions by 60%.",
-    impact: 12400,
-    action: "Start Program",
-  },
-]
 
 const ParticleField = () => {
   return (
@@ -115,183 +43,302 @@ const ParticleField = () => {
   )
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-black/80 border border-green-500/30 px-4 py-2 rounded-lg">
-        <p className="text-green-400">{`${label}: ${payload[0].value.toFixed(1)} tons CO2`}</p>
-      </div>
-    )
-  }
-  return null
-}
-
 export default function BusinessProfile() {
-  const [timeframe, setTimeframe] = useState<"monthly" | "quarterly" | "yearly">("monthly")
+  const [loading, setLoading] = useState(false)
+  const [logoPreview, setLogoPreview] = useState<string | null>(null)
+  const [formData, setFormData] = useState<BusinessProfile>({
+    name: "",
+    industry: "",
+    employeeCount: "",
+    address: "",
+    city: "",
+    country: "",
+    phone: "",
+    email: "",
+    website: "",
+    facilities: "",
+    fleetSize: "",
+    yearlyRevenue: "",
+    sustainabilityGoals: [],
+  })
 
-  const data = mockData[timeframe]
+  const handleLogoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setLogoPreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
-  const currentEmissions = data[data.length - 1].emissions
-  const previousEmissions = data[0].emissions
-  const reduction = (((previousEmissions - currentEmissions) / previousEmissions) * 100).toFixed(1)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
 
-  const handleDownloadReport = () => {
-    // Implement report generation and download
-    console.log("Downloading report...")
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      console.log("Profile data:", formData)
+      // In production, you would send the data to your API here
+    } catch (error) {
+      console.error("Error creating profile:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSustainabilityGoalChange = (goal: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      sustainabilityGoals: prev.sustainabilityGoals.includes(goal)
+        ? prev.sustainabilityGoals.filter((g) => g !== goal)
+        : [...prev.sustainabilityGoals, goal],
+    }))
   }
 
   return (
     <div className="min-h-screen bg-black text-white pb-20 relative overflow-hidden">
       <ParticleField />
 
-      <div className="relative max-w-7xl mx-auto px-6 pt-8">
-        {/* Business Profile Summary */}
-        <div className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-green-500/30 p-8 mb-8">
-          <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-xl blur-xl -z-10" />
-          <div className="flex flex-col md:flex-row justify-between gap-8">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <Building2 className="w-8 h-8 text-green-400" />
-                <h1 className="text-2xl font-bold">Eco Solutions Inc.</h1>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-                <div>
-                  <div className="text-sm text-gray-400">Employees</div>
-                  <div className="text-2xl font-semibold flex items-center gap-2">
-                    <Users className="w-5 h-5 text-green-400" />
-                    250
-                  </div>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400">Facilities</div>
-                  <div className="text-2xl font-semibold flex items-center gap-2">
-                    <Factory className="w-5 h-5 text-green-400" />3
-                  </div>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400">Fleet Size</div>
-                  <div className="text-2xl font-semibold flex items-center gap-2">
-                    <Car className="w-5 h-5 text-green-400" />
-                    12
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={handleDownloadReport}
-              className="flex items-center gap-2 px-6 py-3 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30 transition-colors"
-            >
-              <Download className="w-5 h-5" />
-              Download Report
-            </button>
-          </div>
-        </div>
-
-        {/* Time Period Toggle */}
-        <div className="flex justify-end gap-2 mb-8">
-          {["monthly", "quarterly", "yearly"].map((period) => (
-            <button
-              key={period}
-              onClick={() => setTimeframe(period as typeof timeframe)}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                timeframe === period
-                  ? "bg-green-500/20 text-green-400 border border-green-500/50"
-                  : "text-gray-400 hover:text-white"
-              }`}
-            >
-              {period.charAt(0).toUpperCase() + period.slice(1)}
-            </button>
-          ))}
-        </div>
-
-        {/* Emissions Overview */}
-        <div className="grid gap-8 md:grid-cols-2 mb-8">
-          <div className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-green-500/30 p-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-xl blur-xl -z-10" />
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-semibold text-gray-400">Total Emissions</h2>
-                <div className="mt-2 flex items-baseline">
-                  <span className="text-5xl font-bold text-green-400">{currentEmissions.toFixed(1)}</span>
-                  <span className="ml-2 text-2xl text-gray-500">tons CO2</span>
-                </div>
-              </div>
-              <div className="flex items-center bg-green-500/20 text-green-400 px-3 py-1 rounded-lg">
-                <ArrowDown className="w-4 h-4 mr-1" />
-                {reduction}%
-              </div>
-            </div>
-            <div className="h-[200px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data}>
-                  <XAxis dataKey="month" stroke="#4B5563" />
-                  <YAxis stroke="#4B5563" />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Line type="monotone" dataKey="emissions" stroke="#22C55E" strokeWidth={2} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          <div className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-green-500/30 p-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-xl blur-xl -z-10" />
-            <h2 className="text-xl font-semibold text-gray-400 mb-6">Emissions by Activity</h2>
-            <div className="h-[200px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={activityData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
-                    {activityData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-
-        {/* Department Breakdown */}
-        <div className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-green-500/30 p-8 mb-8">
-          <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-xl blur-xl -z-10" />
-          <h2 className="text-2xl font-semibold mb-6">Emissions by Department</h2>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={departmentData}>
-                <XAxis dataKey="name" stroke="#4B5563" />
-                <YAxis stroke="#4B5563" />
-                <Tooltip />
-                <Bar dataKey="value" fill="#22C55E" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Recommendations */}
+      <div className="relative max-w-4xl mx-auto px-6 pt-8">
         <div className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-green-500/30 p-8">
           <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-xl blur-xl -z-10" />
-          <h2 className="text-2xl font-semibold mb-6">Reduction Opportunities</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {recommendations.map((recommendation) => (
-              <div key={recommendation.id} className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative p-6 rounded-xl border border-green-500/30 group-hover:border-green-500/50 transition-colors">
-                  <recommendation.icon className="w-8 h-8 mb-4 text-green-400" />
-                  <h3 className="text-lg font-semibold mb-2">{recommendation.title}</h3>
-                  <p className="text-gray-400 mb-4">{recommendation.description}</p>
-                  <div className="flex items-center text-green-400 mb-4">
-                    <Leaf className="w-4 h-4 mr-2" />
-                    Save {recommendation.impact.toFixed(0)} tons CO2/year
-                  </div>
-                  <button className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors">
-                    {recommendation.action}
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
+
+          <div className="flex items-center gap-3 mb-8">
+            <Building2 className="w-8 h-8 text-green-400" />
+            <h1 className="text-2xl font-bold">Create Business Profile</h1>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Logo Upload */}
+            <div className="flex items-center gap-6">
+              <div className="relative w-24 h-24 rounded-xl border-2 border-dashed border-green-500/30 flex items-center justify-center overflow-hidden group">
+                {logoPreview ? (
+                  <img
+                    src={logoPreview || "/placeholder.svg"}
+                    alt="Logo preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <Upload className="w-8 h-8 text-green-400 group-hover:scale-110 transition-transform" />
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoChange}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                />
+              </div>
+              <div>
+                <h3 className="font-medium mb-1">Company Logo</h3>
+                <p className="text-sm text-gray-400">Upload your company logo (optional)</p>
+              </div>
+            </div>
+
+            {/* Basic Information */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Company Name</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                  className="w-full p-3 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Industry</label>
+                <select
+                  value={formData.industry}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, industry: e.target.value }))}
+                  className="w-full p-3 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                  required
+                >
+                  <option value="">Select industry</option>
+                  <option value="technology">Technology</option>
+                  <option value="manufacturing">Manufacturing</option>
+                  <option value="retail">Retail</option>
+                  <option value="energy">Energy</option>
+                  <option value="healthcare">Healthcare</option>
+                  <option value="transportation">Transportation</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Contact Information */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Address</label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-3.5 w-5 h-5 text-green-400" />
+                  <input
+                    type="text"
+                    value={formData.address}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, address: e.target.value }))}
+                    className="w-full p-3 pl-10 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
                 </div>
               </div>
-            ))}
-          </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-sm text-gray-400">City</label>
+                  <input
+                    type="text"
+                    value={formData.city}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, city: e.target.value }))}
+                    className="w-full p-3 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm text-gray-400">Country</label>
+                  <input
+                    type="text"
+                    value={formData.country}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, country: e.target.value }))}
+                    className="w-full p-3 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Phone</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-3.5 w-5 h-5 text-green-400" />
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+                    className="w-full p-3 pl-10 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Email</label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3.5 w-5 h-5 text-green-400" />
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                    className="w-full p-3 pl-10 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Website</label>
+                <div className="relative">
+                  <Globe className="absolute left-3 top-3.5 w-5 h-5 text-green-400" />
+                  <input
+                    type="url"
+                    value={formData.website}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
+                    className="w-full p-3 pl-10 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    placeholder="https://"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Business Details */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Number of Employees</label>
+                <div className="relative">
+                  <Users className="absolute left-3 top-3.5 w-5 h-5 text-green-400" />
+                  <input
+                    type="number"
+                    value={formData.employeeCount}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, employeeCount: e.target.value }))}
+                    className="w-full p-3 pl-10 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Number of Facilities</label>
+                <div className="relative">
+                  <Factory className="absolute left-3 top-3.5 w-5 h-5 text-green-400" />
+                  <input
+                    type="number"
+                    value={formData.facilities}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, facilities: e.target.value }))}
+                    className="w-full p-3 pl-10 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm text-gray-400">Fleet Size</label>
+                <div className="relative">
+                  <Car className="absolute left-3 top-3.5 w-5 h-5 text-green-400" />
+                  <input
+                    type="number"
+                    value={formData.fleetSize}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, fleetSize: e.target.value }))}
+                    className="w-full p-3 pl-10 rounded-lg bg-black/40 border border-green-500/30 text-white focus:border-green-500/50 outline-none"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Sustainability Goals */}
+            <div className="space-y-4">
+              <label className="text-sm text-gray-400">Sustainability Goals</label>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[
+                  "Carbon Neutral by 2030",
+                  "100% Renewable Energy",
+                  "Zero Waste",
+                  "Sustainable Supply Chain",
+                  "Electric Fleet",
+                  "Water Conservation",
+                ].map((goal) => (
+                  <label
+                    key={goal}
+                    className={`flex items-center gap-2 p-4 rounded-lg border cursor-pointer transition-colors ${
+                      formData.sustainabilityGoals.includes(goal)
+                        ? "border-green-500 bg-green-500/20 text-green-400"
+                        : "border-green-500/30 hover:border-green-500/50"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.sustainabilityGoals.includes(goal)}
+                      onChange={() => handleSustainabilityGoalChange(goal)}
+                      className="hidden"
+                    />
+                    <span className="text-sm">{goal}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-2 p-4 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                "Creating Profile..."
+              ) : (
+                <>
+                  Create Profile
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
+            </button>
+          </form>
         </div>
       </div>
     </div>
