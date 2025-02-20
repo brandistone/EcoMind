@@ -28,14 +28,28 @@ import {
 } from "recharts"
 
 // Mock data - replace with real API data in production
-const monthlyData = [
-  { month: "Sep", emissions: 125.4 },
-  { month: "Oct", emissions: 118.2 },
-  { month: "Nov", emissions: 112.8 },
-  { month: "Dec", emissions: 108.5 },
-  { month: "Jan", emissions: 98.7 },
-  { month: "Feb", emissions: 92.2 },
-]
+const mockData = {
+  monthly: [
+    { month: "Sep", emissions: 125.4 },
+    { month: "Oct", emissions: 118.2 },
+    { month: "Nov", emissions: 112.8 },
+    { month: "Dec", emissions: 108.5 },
+    { month: "Jan", emissions: 98.7 },
+    { month: "Feb", emissions: 92.2 },
+  ],
+  quarterly: [
+    { month: "Q1 2023", emissions: 380.5 },
+    { month: "Q2 2023", emissions: 350.2 },
+    { month: "Q3 2023", emissions: 320.8 },
+    { month: "Q4 2023", emissions: 299.5 },
+  ],
+  yearly: [
+    { month: "2020", emissions: 1580.5 },
+    { month: "2021", emissions: 1450.2 },
+    { month: "2022", emissions: 1320.8 },
+    { month: "2023", emissions: 1199.5 },
+  ],
+}
 
 const departmentData = [
   { name: "Operations", value: 35 },
@@ -105,7 +119,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-black/80 border border-green-500/30 px-4 py-2 rounded-lg">
-        <p className="text-green-400">{`${payload[0].value.toFixed(1)} tons CO2`}</p>
+        <p className="text-green-400">{`${label}: ${payload[0].value.toFixed(1)} tons CO2`}</p>
       </div>
     )
   }
@@ -115,8 +129,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export default function BusinessDashboard() {
   const [timeframe, setTimeframe] = useState<"monthly" | "quarterly" | "yearly">("monthly")
 
-  const currentEmissions = monthlyData[monthlyData.length - 1].emissions
-  const previousEmissions = monthlyData[0].emissions
+  const data = mockData[timeframe]
+
+  const currentEmissions = data[data.length - 1].emissions
+  const previousEmissions = data[0].emissions
   const reduction = (((previousEmissions - currentEmissions) / previousEmissions) * 100).toFixed(1)
 
   const handleDownloadReport = () => {
@@ -171,6 +187,23 @@ export default function BusinessDashboard() {
           </div>
         </div>
 
+        {/* Time Period Toggle */}
+        <div className="flex justify-end gap-2 mb-8">
+          {["monthly", "quarterly", "yearly"].map((period) => (
+            <button
+              key={period}
+              onClick={() => setTimeframe(period as typeof timeframe)}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                timeframe === period
+                  ? "bg-green-500/20 text-green-400 border border-green-500/50"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              {period.charAt(0).toUpperCase() + period.slice(1)}
+            </button>
+          ))}
+        </div>
+
         {/* Emissions Overview */}
         <div className="grid gap-8 md:grid-cols-2 mb-8">
           <div className="relative bg-black/40 backdrop-blur-xl rounded-xl border border-green-500/30 p-8">
@@ -190,7 +223,7 @@ export default function BusinessDashboard() {
             </div>
             <div className="h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={monthlyData}>
+                <LineChart data={data}>
                   <XAxis dataKey="month" stroke="#4B5563" />
                   <YAxis stroke="#4B5563" />
                   <Tooltip content={<CustomTooltip />} />
