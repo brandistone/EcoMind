@@ -13,7 +13,7 @@ import { Sidebar } from "lucide-react";
 // import DashboardPage from "./frontend/pages/dashboard.tsx";
 // import ExploreMap from "./frontend/pages/exploreMap.tsx";
 // import ScenarioAnalysisTool from "./frontend/pages/scenarioAnalysis.tsx";
-import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis.tsx";
+// import ScenarioAnalysisChat from "./frontend/pages/scenarioAnalysis.tsx";
 import LoginPage from "./frontend/pages/login.tsx";
 import SignUp from "./frontend/pages/signup.tsx";
 import ProfileSetup from "./frontend/components/profile.tsx";
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
 
   {
     path: '/scenario',
-    element: <ScenarioAnalysisChat/>,
+    // element: <ScenarioAnalysisChat/>,
   },
 
   {
