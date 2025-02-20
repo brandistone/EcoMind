@@ -20,6 +20,7 @@ import ProfileSetup from "./frontend/components/profile.tsx";
 import Dashboard from "./frontend/components/dashboard.tsx";
 import ActivityLogger from "./frontend/components/activity-logger.tsx";
 import BusinessDashboard from "./frontend/pages/business-dashboard.tsx";
+import BusinessProfile from "./frontend/pages/business-profile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,11 @@ const router = createBrowserRouter([
   {
     path: '/business-dashboard',
     element: <BusinessDashboard/>,
+  },
+
+  {
+    path: '/business-profile',
+    element: <BusinessProfile/>,
   },
 
 

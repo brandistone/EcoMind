@@ -14,6 +14,7 @@ import ProfileSetup from "./frontend/components/profile";
 import Dashboard from "./frontend/components/dashboard";
 import ActivityLogger from "./frontend/components/activity-logger";
 import BusinessDashboard from "./frontend/pages/business-dashboard";
+import BusinessProfile from "./frontend/pages/business-profile";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/dasboard" element={<Dashboard />} />
         <Route path="/activity-logger" element={<ActivityLogger />} />
         <Route path="/business-dashaboard" element={<BusinessDashboard />} />
+        <Route path="/business-profile" element={<BusinessProfile />} />
 
 
 

@@ -126,7 +126,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null
 }
 
-export default function BusinessDashboard() {
+export default function BusinessProfile() {
   const [timeframe, setTimeframe] = useState<"monthly" | "quarterly" | "yearly">("monthly")
 
   const data = mockData[timeframe]
