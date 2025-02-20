@@ -21,6 +21,7 @@ import Dashboard from "./frontend/components/dashboard.tsx";
 import ActivityLogger from "./frontend/components/activity-logger.tsx";
 import BusinessDashboard from "./frontend/pages/business-dashboard.tsx";
 import BusinessProfile from "./frontend/pages/business-profile.tsx";
+import ProgressInsights from "./frontend/pages/progression-board.tsx";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,12 @@ const router = createBrowserRouter([
     path: '/business-profile',
     element: <BusinessProfile/>,
   },
+
+  {
+    path: '/Progression-board',
+    element: <ProgressInsights/>,
+  },
+
 
 
 
