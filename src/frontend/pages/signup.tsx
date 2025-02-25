@@ -1,7 +1,4 @@
-"use client"
-
-import type React from "react"
-
+import  React from "react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
@@ -29,7 +26,7 @@ const ParticleField = () => {
 }
 
 interface FormData {
-  name: string
+  first_name: string
   email: string
   password: string
   confirmPassword: string
@@ -39,15 +36,49 @@ export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [formData, setFormData] = useState<FormData>({
-    name: "",
+    first_name: "",
     email: "",
     password: "",
     confirmPassword: "",
   })
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Add signup logic here
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch("http://192.168.137.1:8000/api/user/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.detail || "Failed to create account")
+      }
+
+      console.log("Registration Successful:", data)
+      alert("Account created successfully! Please log in.")
+    } catch (error: any) {
+      setError(error.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -71,6 +102,8 @@ export default function SignUpPage() {
             <p className="text-gray-400 mt-2">Join ECOMIND AI today</p>
           </div>
 
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <label htmlFor="name" className="block text-sm font-medium">
@@ -78,9 +111,10 @@ export default function SignUpPage() {
               </label>
               <input
                 id="name"
+                name="first_name"
                 type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                value={formData.first_name}
+                onChange={handleChange}
                 className="w-full px-4 py-2 bg-black/50 border border-green-500/30 focus:border-green-500/50 rounded-lg outline-none transition-colors"
                 required
               />
@@ -92,9 +126,10 @@ export default function SignUpPage() {
               </label>
               <input
                 id="email"
+                name="email"
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={handleChange}
                 className="w-full px-4 py-2 bg-black/50 border border-green-500/30 focus:border-green-500/50 rounded-lg outline-none transition-colors"
                 placeholder="name@example.com"
                 required
@@ -108,9 +143,10 @@ export default function SignUpPage() {
               <div className="relative">
                 <input
                   id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={handleChange}
                   className="w-full px-4 py-2 bg-black/50 border border-green-500/30 focus:border-green-500/50 rounded-lg outline-none transition-colors"
                   required
                 />
@@ -120,7 +156,6 @@ export default function SignUpPage() {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  <span className="sr-only">Toggle password visibility</span>
                 </button>
               </div>
             </div>
@@ -132,9 +167,10 @@ export default function SignUpPage() {
               <div className="relative">
                 <input
                   id="confirmPassword"
+                  name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   value={formData.confirmPassword}
-                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  onChange={handleChange}
                   className="w-full px-4 py-2 bg-black/50 border border-green-500/30 focus:border-green-500/50 rounded-lg outline-none transition-colors"
                   required
                 />
@@ -144,16 +180,16 @@ export default function SignUpPage() {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  <span className="sr-only">Toggle password visibility</span>
                 </button>
               </div>
             </div>
 
             <button
               type="submit"
+              disabled={loading}
               className="w-full py-2 px-4 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 rounded-lg font-medium transition-colors"
             >
-              Create Account
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
 
@@ -170,4 +206,3 @@ export default function SignUpPage() {
     </div>
   )
 }
-

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-v^(6@bg5r8nmeo$p*+a2o8$o_7=#3ja*9_4y1ib+sm+@$&qcz7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -61,6 +61,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ecomind.urls'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
